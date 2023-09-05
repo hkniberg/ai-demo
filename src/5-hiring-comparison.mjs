@@ -7,7 +7,7 @@ import { readPdfText } from 'pdf-text-reader';
 config();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-const jobDescriptionFile = 'baker.txt';
+const jobDescriptionFile = 'astronaut.txt';
 
 const systemMessage = "You are a recruitment expert";
 
@@ -26,6 +26,9 @@ Based on this information, who looks most promising for this job, and why?
 
 const candidatesDir = path.join('..', 'hiring-demo', 'candidates');
 const evaluationsDir = path.join('..', 'hiring-demo', 'evaluations');
+if (!fs.existsSync(evaluationsDir)) {
+    fs.mkdirSync(evaluationsDir);
+}
 const candidateFileNames = fs.readdirSync(candidatesDir);
 
 async function evaluateCandidate(job, candidateFileName) {
@@ -73,6 +76,7 @@ async function main() {
     const job = await readFile(path.join('..', 'hiring-demo', jobDescriptionFile));
     const evaluations = await Promise.all(candidateFileNames.map(candidateFileName => evaluateCandidate(job, candidateFileName)));
     let finalRecommendation = await generateFinalRecommendation(job, evaluations);
+    saveFinalRecommendation(finalRecommendation);
     console.log(finalRecommendation);
 }
 
@@ -85,8 +89,13 @@ async function readFile(fileName) {
 }
 
 async function saveEvaluation(candidateFileName, evaluationText) {
-    const evaluationFileName = path.join(evaluationsDir, candidateFileName.replace(/\..+$/, '') + '-evaluation.txt');
-    fs.writeFileSync(evaluationFileName, evaluationText);
+    const evaluationFile = path.join(evaluationsDir, candidateFileName.replace(/\..+$/, '') + '-evaluation.txt');
+    fs.writeFileSync(evaluationFile, evaluationText);
+}
+
+function saveFinalRecommendation(finalRecommendation) {
+    const recommendationFile = path.join(evaluationsDir, 'recommendation.txt');
+    fs.writeFileSync(recommendationFile, finalRecommendation);
 }
 
 main();

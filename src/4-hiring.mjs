@@ -15,7 +15,7 @@ Here is the CV:
 `;
 
 async function main() {
-    const job = readFile('baker.txt');
+    const job = readFile('music-startup.txt');
     const cv = readFile('candidates/MarieCurie.md');
 
     const fullPrompt = prompt
