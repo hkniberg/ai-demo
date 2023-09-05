@@ -2,7 +2,7 @@ import { OpenAI } from "openai";
 import { config } from "dotenv";
 import readlineSync from "readline-sync";
 config();
-const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const messages = [];
 
