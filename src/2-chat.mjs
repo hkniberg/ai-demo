@@ -13,12 +13,12 @@ async function chat() {
         //console.log(JSON.stringify(messages, null, 2));
 
         const result = await openai.chat.completions.create({
-            model: "gpt-4",
+            model: "gpt-3.5-turbo",
             messages: messages,
         });
 
         const reply = result.choices[0].message;
-        console.log(`GPT-4: ${reply.content}`);
+        console.log(`GPT: ${reply.content}`);
 
         messages.push(reply);
     }
