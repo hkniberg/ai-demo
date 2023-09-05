@@ -1,0 +1,16 @@
+{
+  "name": "ai-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "1-hello.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "module": "true",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "openai": "^4.4.0"
+  }
+}
