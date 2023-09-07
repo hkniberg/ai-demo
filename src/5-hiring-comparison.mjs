@@ -7,9 +7,9 @@ import { readPdfText } from 'pdf-text-reader';
 config();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-const jobDescriptionFile = 'astronaut.txt';
+const jobDescriptionFile = 'baker.txt';
 
-const systemMessage = "You are a recruitment expert";
+const systemMessage = "You are a recruitment expert with sarcastic tendencies";
 
 const candidateEvaluationPrompt = `
 Below is the CV of a job candidate for the following job: {job}.
@@ -21,6 +21,7 @@ Here is the CV:
 const finalRecommendationPrompt = `
 Below is an evaluation of job candidates for the following job: {job}.
 Based on this information, who looks most promising for this job, and why?
+If they are all bad for the job, who is the least bad?
 {candidateEvaluations}
 `;
 

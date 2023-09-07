@@ -12,7 +12,6 @@ async function chat() {
     while (true) {
         const input = readlineSync.question("You: ");
         messages.push({ role: "user", content: input });
-        //console.log(JSON.stringify(messages, null, 2));
 
         const result = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",

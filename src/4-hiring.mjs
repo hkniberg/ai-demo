@@ -2,6 +2,7 @@ import {OpenAI} from "openai";
 import {config} from "dotenv";
 import * as path from "path";
 import * as fs from "fs";
+import {readPdfText} from "pdf-text-reader";
 
 config();
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
@@ -15,8 +16,8 @@ Here is the CV:
 `;
 
 async function main() {
-    const job = readFile('music-startup.txt');
-    const cv = readFile('candidates/MarieCurie.md');
+    const job = await readFile('astronaut.txt');
+    const cv = await readFile('candidates/MarieCurie.md');
 
     const fullPrompt = prompt
         .replace('{job}', job)
@@ -33,9 +34,13 @@ async function main() {
     console.log(result.choices[0].message.content);
 }
 
-function readFile(fileName) {
-    const fullPath = path.join('..', 'hiring-demo', fileName);
-    return fs.readFileSync(fullPath, 'utf8');
+async function readFile(fileName) {
+    const fullPath = path.join('..', 'hiring-demo', fileName)
+    if (fileName.endsWith('.pdf')) {
+        return await readPdfText({ url: fullPath });
+    } else {
+        return fs.readFileSync(fullPath, 'utf8');
+    }
 }
 
 main();
