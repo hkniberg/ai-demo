@@ -3,7 +3,7 @@ import {config} from "dotenv";
 import * as fs from "fs";
 import {readPdfText} from "pdf-text-reader";
 
-config();
+config({path: '../.env'});
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 const systemMessage = "You are a recruitment expert";
