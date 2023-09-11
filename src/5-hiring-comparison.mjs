@@ -1,8 +1,8 @@
-import { OpenAI } from "openai";
-import { config } from "dotenv";
+import {OpenAI} from "openai";
+import {config} from "dotenv";
 import * as path from "path";
 import * as fs from "fs";
-import { readPdfText } from 'pdf-text-reader';
+import {readPdfText} from 'pdf-text-reader';
 
 config();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -13,16 +13,22 @@ const systemMessage = "You are a recruitment expert with sarcastic tendencies";
 
 const candidateEvaluationPrompt = `
 Below is the CV of a job candidate for the following job: {job}.
+
 Evaluate the candidate. Write the main pros and cons, and your personal reflection.
+
 Here is the CV:
 {cv}
 `;
 
 const finalRecommendationPrompt = `
 Below is an evaluation of job candidates for the following job: {job}.
-Based on this information, who looks most promising for this job, and why?
-If they are all bad for the job, who is the least bad?
+
+Based on this information, who seems most suitable for this job?
+---
 {candidateEvaluations}
+---
+Give a short answer, about one paragraph. Be specific about who the best candidate is, and why.
+If they are all bad for the job, who is the least bad?
 `;
 
 const candidatesDir = path.join('..', 'hiring-demo', 'candidates');
@@ -68,9 +74,7 @@ async function generateFinalRecommendation(job, evaluations) {
             {"role": "user", "content": fullPrompt},
         ]
     });
-
-    let finalRecommendation = result.choices[0].message.content;
-    return finalRecommendation;
+    return result.choices[0].message.content;
 }
 
 async function main() {
