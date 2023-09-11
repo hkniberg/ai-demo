@@ -15,7 +15,7 @@ const candidateEvaluationPrompt = `
 Below is the CV of a job candidate for the following job: {job}.
 
 Evaluate the candidate. Write the main pros and cons, and your personal reflection.
-
+Write the result in markdown format.
 Here is the CV:
 {cv}
 `;
@@ -27,15 +27,13 @@ Based on this information, who seems most suitable for this job?
 ---
 {candidateEvaluations}
 ---
-Give a short answer, about one paragraph. Be specific about who the best candidate is, and why.
+Give a short answer in markdown format, about one paragraph. Be specific about who the best candidate is, and why.
 If they are all bad for the job, who is the least bad?
 `;
 
-const candidatesDir = path.join('..', 'hiring-demo', 'candidates');
-const evaluationsDir = path.join('..', 'hiring-demo', 'evaluations');
-if (!fs.existsSync(evaluationsDir)) {
-    fs.mkdirSync(evaluationsDir);
-}
+const jobDescriptionsDir = '../files/hiring-demo/jobs';
+const candidatesDir = '../files/hiring-demo/candidates';
+const evaluationsDir = '../files/hiring-demo/evaluations';
 const candidateFileNames = fs.readdirSync(candidatesDir);
 
 async function evaluateCandidate(job, candidateFileName) {
@@ -78,7 +76,7 @@ async function generateFinalRecommendation(job, evaluations) {
 }
 
 async function main() {
-    const job = await readFile(path.join('..', 'hiring-demo', jobDescriptionFile));
+    const job = await readFile(path.join(jobDescriptionsDir, jobDescriptionFile));
     const evaluations = await Promise.all(candidateFileNames.map(candidateFileName => evaluateCandidate(job, candidateFileName)));
     let finalRecommendation = await generateFinalRecommendation(job, evaluations);
     saveFinalRecommendation(finalRecommendation);
@@ -94,12 +92,15 @@ async function readFile(fileName) {
 }
 
 async function saveEvaluation(candidateFileName, evaluationText) {
-    const evaluationFile = path.join(evaluationsDir, candidateFileName.replace(/\..+$/, '') + '-evaluation.txt');
+    if (!fs.existsSync(evaluationsDir)) {
+        fs.mkdirSync(evaluationsDir);
+    }
+    const evaluationFile = path.join(evaluationsDir, candidateFileName.replace(/\..+$/, '') + '-evaluation.md');
     fs.writeFileSync(evaluationFile, evaluationText);
 }
 
 function saveFinalRecommendation(finalRecommendation) {
-    const recommendationFile = path.join(evaluationsDir, 'recommendation.txt');
+    const recommendationFile = path.join(evaluationsDir, 'recommendation.md');
     fs.writeFileSync(recommendationFile, finalRecommendation);
 }
 

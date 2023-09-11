@@ -1,6 +1,5 @@
 import {OpenAI} from "openai";
 import {config} from "dotenv";
-import * as path from "path";
 import * as fs from "fs";
 import {readPdfText} from "pdf-text-reader";
 
@@ -15,15 +14,18 @@ Here is the CV:
 {cv}
 `;
 
+const jobFile = 'astronaut.txt'
+const cvFile = 'MarieCurie.md'
+
 async function main() {
-    const job = await readFile('astronaut.txt');
-    const cv = await readFile('candidates/MarieCurie.md');
+    const job = await readFile('../files/hiring-demo/jobs/' + jobFile);
+    const cv = await readFile('../files/hiring-demo/candidates/' + cvFile);
 
     const fullPrompt = prompt
         .replace('{job}', job)
         .replace('{cv}', cv);
 
-    console.log("Evaluating candidate...");
+    console.log(`Evaluating ${cvFile} for the job ${jobFile}...`);
     const result = await openai.chat.completions.create({
         model: "gpt-4",
         messages: [
@@ -31,15 +33,15 @@ async function main() {
             {"role": "user", "content": fullPrompt},
         ]
     })
-    console.log(result.choices[0].message.content);
+    const evaluation = result.choices[0].message.content;
+    console.log(evaluation);
 }
 
-async function readFile(fileName) {
-    const fullPath = path.join('..', 'hiring-demo', fileName)
-    if (fileName.endsWith('.pdf')) {
-        return await readPdfText({ url: fullPath });
+async function readFile(filePath) {
+    if (filePath.endsWith('.pdf')) {
+        return await readPdfText({ url: filePath });
     } else {
-        return fs.readFileSync(fullPath, 'utf8');
+        return fs.readFileSync(filePath, 'utf8');
     }
 }
 
