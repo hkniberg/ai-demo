@@ -55,11 +55,12 @@ async function compareTexts(existingTexts, newText) {
 }
 
 const existingTexts = [
-    "Hey Dad, I need help urgently",
-    "Here is your Amazon.com purchase receipt",
-    "Can you come in to the office this weekend?",
-    "MAKE $$$$ EASILY! CLiCk HeRE!"
+    "How do I change my password?",
+    "What products do you sell?",
+    "How long is the delivery time?",
+    "How do I erase my account?",
+    "What is the cancellation policy?"
 ]
 
-const newText = "Your domain xyz.com will expire tomorrow if you don't take action immediately.";
+const newText = "I can't log in.";
 await compareTexts(existingTexts, newText);

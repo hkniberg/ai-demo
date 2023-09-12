@@ -31,9 +31,9 @@ Give a short answer in markdown format, about one paragraph. Be specific about w
 If they are all bad for the job, who is the least bad?
 `;
 
-const jobDescriptionsDir = '../files/hiring-demo/jobs';
-const candidatesDir = '../files/hiring-demo/candidates';
-const evaluationsDir = '../files/hiring-demo/evaluations';
+const jobDescriptionsDir = '../../files/hiring-demo/jobs';
+const candidatesDir = '../../files/hiring-demo/candidates';
+const evaluationsDir = '../../files/hiring-demo/evaluations';
 const candidateFileNames = fs.readdirSync(candidatesDir);
 
 async function evaluateCandidate(job, candidateFileName) {

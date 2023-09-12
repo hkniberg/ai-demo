@@ -18,8 +18,8 @@ const jobFile = 'astronaut.txt'
 const cvFile = 'MarieCurie.md'
 
 async function main() {
-    const job = await readFile('../files/hiring-demo/jobs/' + jobFile);
-    const cv = await readFile('../files/hiring-demo/candidates/' + cvFile);
+    const job = await readFile('../../files/hiring-demo/jobs/' + jobFile);
+    const cv = await readFile('../../files/hiring-demo/candidates/' + cvFile);
 
     const fullPrompt = prompt
         .replace('{job}', job)
