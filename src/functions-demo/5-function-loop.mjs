@@ -1,7 +1,7 @@
 import {OpenAI} from "openai";
 import {config} from "dotenv";
 import {getWeather, weatherFunctionSchema} from "./weather.mjs";
-config({path: '../.env'});
+config({path: '../../.env'});
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 /*

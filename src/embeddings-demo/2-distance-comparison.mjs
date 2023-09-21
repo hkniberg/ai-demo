@@ -11,7 +11,7 @@ import { config } from "dotenv";
   Place these in variables so I can change the text.
 */
 
-config({ path: '../.env' });
+config({ path: '../../.env' });
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // Function to compute Euclidean distance between two vectors

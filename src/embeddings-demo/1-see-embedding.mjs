@@ -1,6 +1,6 @@
 import {OpenAI} from "openai";
 import {config} from "dotenv";
-config({path: '../.env'});
+config({path: '../../.env'});
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // https://platform.openai.com/docs/api-reference/embeddings/create

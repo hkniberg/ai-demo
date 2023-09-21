@@ -14,7 +14,7 @@ import { config } from "dotenv";
     - 0.64 distance from "Cats are cute"
     - 0.7 distance from "Hot dogs cost $3"
  */
-config({ path: '../.env' });
+config({ path: '../../.env' });
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // Function to compute Euclidean distance between two vectors

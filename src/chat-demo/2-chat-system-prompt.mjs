@@ -1,7 +1,7 @@
 import { OpenAI } from "openai";
 import { config } from "dotenv";
 import readlineSync from "readline-sync";
-config({path: '../.env'});
+config({path: '../../.env'});
 const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
 const messages = [

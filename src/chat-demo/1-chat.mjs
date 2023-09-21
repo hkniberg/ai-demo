@@ -7,7 +7,7 @@ import readlineSync from "readline-sync";
     Look at the above example of how to talk to OpenAI (helloworld-demo).
     Create a new program that is chat loop, so I can keep chatting with the AI.
  */
-config({path: '../.env'});
+config({path: '../../.env'});
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const messages = [];

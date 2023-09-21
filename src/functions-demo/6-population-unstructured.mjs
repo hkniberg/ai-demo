@@ -1,6 +1,6 @@
 import {OpenAI} from "openai";
 import {config} from "dotenv";
-config({path: '../.env'});
+config({path: '../../.env'});
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 let prompt = "What is the population of the 3 largest cities in europe?";
