@@ -8,7 +8,7 @@ import { config } from "dotenv";
   write code that generates embeddings for
   "Cats are cute", "Hot dogs cost $3", and "What kind of animal should I buy?",
   and calculates the distance between each pair.
-  Place these in variables so I can change the text.
+  Place these in variables, so I can change the text.
 */
 
 config({ path: '../../.env' });
