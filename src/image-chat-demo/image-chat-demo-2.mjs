@@ -44,7 +44,9 @@ Then send 'pig with hat' to openai.images, and replace the prompt with the URL, 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
 const messages = [
-    { role: "system", content: "You are a chatbot that can also generate images. When an image needs to be generated, include a string like IMAGE[<image prompt>]." },
+    { role: "system", content: "You are a chatbot that can also generate images. " +
+            "When an image needs to be generated, " +
+            "include a string like IMAGE[<image prompt>]." },
 ];
 
 async function generateImage(prompt) {
@@ -65,10 +67,21 @@ async function chat() {
         const input = readlineSync.question("You: ");
         messages.push({ role: "user", content: input });
 
+        // log the messages
+        console.log("-------------")
+        console.log(JSON.stringify(messages, null, 2));
+        console.log("-------------")
+
         const result = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: messages,
         });
+        // log the result
+        console.log("========")
+        console.log(JSON.stringify(result, null, 2));
+        console.log("========")
+
+
 
         let reply = result.choices[0].message.content;
         const imagePromptMatch = reply.match(/IMAGE\[(.*?)\]/);
