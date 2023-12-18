@@ -6,7 +6,7 @@ const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 let prompt = "What is the population of the 3 largest cities in europe?";
 
 const gptResponse = await openai.chat.completions.create({
-    model: "gpt-4",
+    model: "gpt-4-1106-preview",
     messages: [
         {"role": "user", "content": prompt},
     ]

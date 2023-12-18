@@ -1,6 +1,6 @@
 import {OpenAI} from "openai";
 import {config} from "dotenv";
-import {getWeather, weatherFunctionSchema} from "./weather.mjs";
+import {getWeather, weatherFunctionSchema} from "./weather.js";
 config({path: '../../.env'});
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
@@ -56,7 +56,7 @@ async function callGpt(model, prompt) {
     }
 }
 
-const result = await callGpt("gpt-4",
+const result = await callGpt("gpt-4-1106-preview",
     "Which of the biggest 3 european cities has the nicest weather right now?"
 )
 console.log(result);

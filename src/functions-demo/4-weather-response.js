@@ -1,6 +1,6 @@
 import {OpenAI} from "openai";
 import {config} from "dotenv";
-import {getWeather, weatherFunctionSchema} from "./weather.mjs";
+import {getWeather, weatherFunctionSchema} from "./weather.js";
 config({path: '../../.env'});
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
@@ -20,7 +20,19 @@ if (gptResponseMessage?.function_call?.name === 'getWeather') {
     const city = args.city;
     console.log("GPT asked me to call getWeather for city: ", city);
     const weatherData = await getWeather(city);
-    console.log("Got weather data: ", weatherData);
+    messages.push({
+        role: "function",
+        name: 'getWeather',
+        content: JSON.stringify(weatherData)
+    });
+
+    console.log("Giving the weather data back to GPT: ", messages);
+    const gptResponse2 = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: messages
+    });
+    console.log("GPT response:")
+    console.log(gptResponse2.choices[0].message);
 }
 
 
