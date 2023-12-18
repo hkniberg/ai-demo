@@ -5,8 +5,9 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // https://platform.openai.com/docs/api-reference/images/create
 const result = await openai.images.generate({
+    model: "dall-e-3",
     prompt: "An ugly cat",
-    size: "256x256" // optional, defaults to 1024x1024
+    size: "1024x1024"
 });
 
 console.log(result.data[0].url);
