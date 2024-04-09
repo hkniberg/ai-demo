@@ -25,7 +25,7 @@ async function main() {
 
   console.log(`Evaluating ${cvFile} for the job ${jobFile}...`);
   const result = await openai.chat.completions.create({
-    model: "gpt-4-1106-preview",
+    model: "gpt-4-0125-preview",
     messages: [
       { role: "system", content: systemMessage },
       { role: "user", content: fullPrompt },

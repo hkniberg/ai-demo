@@ -45,7 +45,7 @@ async function evaluateCandidate(job, candidateFileName) {
     .replace("{cv}", cv);
 
   const result = await openai.chat.completions.create({
-    model: "gpt-4-1106-preview",
+    model: "gpt-4-0125-preview",
     messages: [
       { role: "system", content: systemMessage },
       { role: "user", content: fullPrompt },
